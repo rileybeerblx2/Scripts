@@ -1,7 +1,7 @@
 
 local library = loadstring(game:HttpGet("https://pastebin.com/raw/eKwyeQa0", true))()
 
-local tab1 = library:CreateTab("  Piggy Godmode", true)
+local tab1 = library:CreateTab("  Riley Hub (Piggy) - V4", true)
 local button = library:MakeButton(tab1,"on",function(button)
  
 _G.GodMode = true
@@ -95,6 +95,12 @@ end)
 
 
 local text = library:MakeLabel(tab1,"Put off to escape")
+
+local button = library:MakeButton(tab1,"Teleport To Items",function(button)
+
+loadstring(game:HttpGet('https://raw.githubusercontent.com/rileybeerblx2/Scripts/main/piggy.lua'))()
+
+end)
 
 
 local button = library:MakeButton(tab1,"Fly",function(button)
