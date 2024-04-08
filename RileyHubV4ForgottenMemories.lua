@@ -1,5 +1,4 @@
-if game.GameId == 3240343305 then
-repeat wait() until game:GetService("Players").LocalPlayer.PlayerGui.CutsceneUI.Enabled == false and game:GetService("Players").LocalPlayer.Character
+
 local OrionLib = loadstring(game:HttpGet(('https://raw.githubusercontent.com/rileybeerblx2/Orion-Lua/main/mobilefriendlyorion.lua')))()
 local Window = OrionLib:MakeWindow({Name = "Riley Hub V4", HidePremium = false, SaveConfig = true, ConfigFolder = "Riley Hub V4 - Forgotten Memories"})
 
