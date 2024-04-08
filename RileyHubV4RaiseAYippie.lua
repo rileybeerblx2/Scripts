@@ -1,4 +1,3 @@
-if(gameid == 9742783208) then
 
 local Library = loadstring(game:HttpGet("https://raw.githubusercontent.com/rileybeerblx2/kavo-ui/main/kavo.lua"))()
    local Window = Library.CreateLib("Riley Hub V4 - Raise A Yippie", "Ocean")
