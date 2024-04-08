@@ -6,7 +6,6 @@ workspace:WaitForChild("BountyHunterRoom"):WaitForChild("BountyHunterBooth"):Wai
 workspace:WaitForChild("BountyHunterRoom"):WaitForChild("BountyHunterBooth"):WaitForChild("_configPart"):WaitForChild("LeaveRemote"):FireServer()
 end
 end)
-if game.PlaceId == 6403373529 then
 local OrionLib = loadstring(game:HttpGet(('https://raw.githubusercontent.com/rileybeerblx2/Orion-Lua/main/mobilefriendlyorion.lua')))()
 local Window = OrionLib:MakeWindow({Name = "Riley Hub V4 - Slap Battles", HidePremium = false, SaveConfig = true, ConfigFolder = "Riley Hub V4"})
 local nk = false
