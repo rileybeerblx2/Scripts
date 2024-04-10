@@ -1,9 +1,11 @@
 --[[
-	DEX Main Script
-	
-	Created by: Moon and Courtney
-	
-	RASPBERRY PI IS A SKIDDY SKID AF
+
+riley dex explorer
+
+i forgot to change the welcome screen
+
+rahhh
+
 --]]
 
 -- Metas
