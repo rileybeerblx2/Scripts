@@ -1,18 +1,19 @@
 --[[
-    RileyRemote v2.2
 
-    Riley
+    RileyRemote V4
+
+    yippie
 ]]
 
 --[[
 
-  yippie
+riley dex explorer?
   
 ]]
 
--- shuts down the previous instance of RileyRemote
-if _G.SimpleSpyExecuted and type(_G.RileyRemoteShutdown) == "function" then
-	print(pcall(_G.RileyRemoteShutdown))
+-- shuts down the previous instance of SimpleSpy
+if _G.SimpleSpyExecuted and type(_G.SimpleSpyShutdown) == "function" then
+	print(pcall(_G.SimpleSpyShutdown))
 end
 
 local Players = game:GetService("Players")
@@ -59,12 +60,12 @@ local gui = Instance.new("UICorner", nextb)
 
 --Properties:
 
-RileyRemote.Name = "RileyRemote"
-RileyRemote.ResetOnSpawn = false
+SimpleSpy2.Name = "SimpleSpy2"
+SimpleSpy2.ResetOnSpawn = false
 
 local SpyFind = CoreGui:FindFirstChild(SimpleSpy2.Name)
 
-if SpyFind and SpyFind ~= RileyRemote then
+if SpyFind and SpyFind ~= SimpleSpy2 then
   SpyFind:Destroy()
 end
 
@@ -227,7 +228,7 @@ TopBar.BackgroundColor3 = Color3.fromRGB(37, 35, 38)
 TopBar.BorderSizePixel = 0
 TopBar.Size = UDim2.new(0, 450, 0, 19)
 
-Simple.Name = "Riley"
+Simple.Name = "Simple"
 Simple.Parent = TopBar
 Simple.BackgroundColor3 = Color3.new(1, 1, 1)
 Simple.AutoButtonColor = false
@@ -367,7 +368,7 @@ local remoteFunction = Instance.new("RemoteFunction")
 local originalEvent = remoteEvent.FireServer
 local originalFunction = remoteFunction.InvokeServer
 --- the maximum amount of remotes allowed in logs
-_G.RILEYREMOTECONFIG_MaxRemotes = 500
+_G.SIMPLESPYCONFIG_MaxRemotes = 500
 --- how many spaces to indent
 local indent = 4
 --- used for task scheduler
@@ -407,7 +408,7 @@ local connections = {}
 -- whether or not SimpleSpy uses 'getcallingscript()' to get the script (default is false because detection)
 local useGetCallingScript = false
 
---- used to enable/disable RileyRemote's keyToString for remotes
+--- used to enable/disable SimpleSpy's keyToString for remotes
 local keyToString = false
 
 -- determines whether return values are recorded
@@ -428,7 +429,7 @@ end
 --- Converts a value to variables with the specified index as the variable name (if nil/invalid then the name will be assigned automatically)
 --- @param t any[]
 --- @return string
-function RileyRemote:TableToVars(t)
+function SimpleSpy:TableToVars(t)
 	assert(typeof(t) == "table", "table expected, got " .. typeof(t))
 	return v2v(t)
 end
@@ -436,7 +437,7 @@ end
 --- Converts a value to a variable with the specified `variablename` (if nil/invalid then the name will be assigned automatically)
 --- @param value any
 --- @return string
-function RileyRemote:ValueToVar(value, variablename)
+function SimpleSpy:ValueToVar(value, variablename)
 	assert(variablename == nil or typeof(variablename) == "string", "string expected, got " .. typeof(variablename))
 	if not variablename then
 		variablename = 1
@@ -447,14 +448,14 @@ end
 --- Converts any value to a string, cannot preserve function contents
 --- @param value any
 --- @return string
-function RileyRemote:ValueToString(value)
+function SimpleSpy:ValueToString(value)
 	return v2s(value)
 end
 
 --- Generates the simplespy function info
 --- @param func function
 --- @return string
-function RileyRemote:GetFunctionInfo(func)
+function SimpleSpy:GetFunctionInfo(func)
 	assert(typeof(func) == "function", "Instance expected, got " .. typeof(func))
 	warn("Function info currently unavailable due to crashing in Synapse X")
 	return v2v({ functionInfo = {
@@ -465,7 +466,7 @@ end
 
 --- Gets the ScriptSignal for a specified remote being fired
 --- @param remote Instance
-function RileyRemote:GetRemoteFiredSignal(remote)
+function SimpleSpy:GetRemoteFiredSignal(remote)
 	assert(typeof(remote) == "Instance", "Instance expected, got " .. typeof(remote))
 	if not remoteSignals[remote] then
 		remoteSignals[remote] = newSignal()
@@ -476,7 +477,7 @@ end
 --- Allows for direct hooking of remotes **THIS CAN BE VERY DANGEROUS**
 --- @param remote Instance
 --- @param f function
-function RileyRemote:HookRemote(remote, f)
+function SimpleSpy:HookRemote(remote, f)
 	assert(typeof(remote) == "Instance", "Instance expected, got " .. typeof(remote))
 	assert(typeof(f) == "function", "function expected, got " .. typeof(f))
 	remoteHooks[remote] = f
@@ -484,7 +485,7 @@ end
 
 --- Blocks the specified remote instance/string
 --- @param remote any
-function RileyRemote:BlockRemote(remote)
+function SimpleSpy:BlockRemote(remote)
 	assert(
 		typeof(remote) == "Instance" or typeof(remote) == "string",
 		"Instance | string expected, got " .. typeof(remote)
@@ -494,7 +495,7 @@ end
 
 --- Excludes the specified remote from logs (instance/string)
 --- @param remote any
-function RileyRemote:ExcludeRemote(remote)
+function SimpleSpy:ExcludeRemote(remote)
 	assert(
 		typeof(remote) == "Instance" or typeof(remote) == "string",
 		"Instance | string expected, got " .. typeof(remote)
@@ -542,7 +543,7 @@ end
 
 --- Prevents remote spam from causing lag (clears logs after `_G.SIMPLESPYCONFIG_MaxRemotes` or 500 remotes)
 function clean()
-	local max = _G.RILEYREMOTECONFIG_MaxRemotes
+	local max = _G.SIMPLESPYCONFIG_MaxRemotes
 	if not typeof(max) == "number" and math.floor(max) ~= max then
 		max = 500
 	end
@@ -2054,7 +2055,7 @@ function toggleSpy()
 			end
 			setreadonly(gm, false)
 			if not original then
-				warn("RileyRemote: namecall method not found!")
+				warn("SimpleSpy: namecall method not found!")
 				onToggleButtonClick()
 				return
 			end
@@ -2079,13 +2080,13 @@ function toggleSpy()
 	end
 end
 
---- Toggles between the two RileyRemote methods (hookfunction currently = disabled)
+--- Toggles between the two remotespy methods (hookfunction currently = disabled)
 function toggleSpyMethod()
 	toggleSpy()
 	toggle = not toggle
 end
 
---- Shuts down the RileyRemote
+--- Shuts down the remote spy
 function shutdown()
 	if schedulerconnect then
 		schedulerconnect:Disconnect()
@@ -2095,7 +2096,7 @@ function shutdown()
 			connection:Disconnect()
 		end)()
 	end
-	RileyRemote:Destroy()
+	SimpleSpy2:Destroy()
 	hookfunction(remoteEvent.FireServer, originalEvent)
 	hookfunction(remoteFunction.InvokeServer, originalFunction)
 	if hookmetamethod then
@@ -2108,11 +2109,11 @@ function shutdown()
 		gm.__namecall = original
 		setreadonly(gm, true)
 	end
-	_G.RileyRemoteExecuted = false
+	_G.SimpleSpyExecuted = false
 end
 
 -- main
-if not _G.RileyRemoteExecuted then
+if not _G.SimpleSpyExecuted then
 	local succeeded, err = pcall(function()
 		if not RunService:IsClient() then
 			error("SimpleSpy cannot run on the server!")
@@ -2138,7 +2139,7 @@ if not _G.RileyRemoteExecuted then
 			end
 			shutdown()
 			error(
-				"This environment does not support method hooks!\n(Your exploit is not capable of running RileyRemote)\nMissing: "
+				"This environment does not support method hooks!\n(Your exploit is not capable of running SimpleSpy)\nMissing: "
 					.. table.concat(missing, ", ")
 			)
 		end
@@ -2158,7 +2159,7 @@ if not _G.RileyRemoteExecuted then
 		FunctionTemplate.Parent = nil
 		codebox = Highlight.new(CodeBox)
 		codebox:setRaw("")
-		getgenv().RileyRemote = RileyRemote
+		getgenv().SimpleSpy = SimpleSpy
 		getgenv().getNil = function(name, class)
 			for _, v in pairs(getnilinstances()) do
 				if v.ClassName == class and v.Name == name then
@@ -2185,7 +2186,7 @@ if not _G.RileyRemoteExecuted then
 		end)()
 		schedulerconnect = RunService.Heartbeat:Connect(taskscheduler)
 		if syn and syn.protect_gui then
-			pcall(syn.protect_gui, RileyRemote)
+			pcall(syn.protect_gui, SimpleSpy2)
 		end
 		bringBackOnResize()
 		SimpleSpy2.Parent = --[[gethui and gethui() or]]
@@ -2200,10 +2201,10 @@ if not _G.RileyRemoteExecuted then
 	end)
 	if not succeeded then
 		warn(
-			"A fatal error has occured, SimpleSpy was unable to launch properly.\nPlease DM this error message to RileyBeeRBLX:\n\n"
+			"A fatal error has occured, RileyRemote was unable to launch properly.\nPlease DM this error message to RileyBeeRBLX:\n\n"
 				.. tostring(err)
 		)
-		RileyRemote:Destroy()
+		SimpleSpy2:Destroy()
 		hookfunction(remoteEvent.FireServer, originalEvent)
 		hookfunction(remoteFunction.InvokeServer, originalFunction)
 		if hookmetamethod then
@@ -2218,11 +2219,11 @@ if not _G.RileyRemoteExecuted then
 		return
 	end
 else
-	RileyRemote:Destroy()
+	SimpleSpy2:Destroy()
 	return
 end
 
------ ADD ONS ----- (easily add or remove additonal functionality to the RileyRemote!)
+----- ADD ONS ----- (easily add or remove additonal functionality to the RemoteSpy!)
 --[[
     Some helpful things:
         - add your function in here, and create buttons for them through the 'newButton' function
@@ -2283,7 +2284,7 @@ newButton("Get Script", function()
 	return "Click to copy calling script to clipboard\nWARNING: Not super reliable, nil == could not find"
 end, function()
 	if selected then
-		setclipboard(RileyRemote:ValueToString(selected.Source))
+		setclipboard(SimpleSpy:ValueToString(selected.Source))
 		TextLabel.Text = "Done!"
 	end
 end)
@@ -2295,10 +2296,10 @@ end, function()
 	if selected then
 		if selected.Function then
 			codebox:setRaw(
-				"-- Calling function info\n-- Generated by the RileyRemote serializer\n\n" .. tostring(selected.Function)
+				"-- Calling function info\n-- Generated by the SimpleSpy serializer\n\n" .. tostring(selected.Function)
 			)
 		end
-		TextLabel.Text = "Done! Function info generated by the RileyRemote Serializer."
+		TextLabel.Text = "Done! Function info generated by the SimpleSpy Serializer."
 	end
 end)
 
@@ -2320,7 +2321,7 @@ end)
 
 --- Excludes the selected.Log Remote from the RemoteSpy
 newButton("Exclude (i)", function()
-	return "Click to exclude this Remote.\nExcluding a remote makes RileyRemote ignore it, but it will continue to be usable."
+	return "Click to exclude this Remote.\nExcluding a remote makes SimpleSpy ignore it, but it will continue to be usable."
 end, function()
 	if selected then
 		blacklist[selected.Remote.remote] = true
@@ -2328,9 +2329,9 @@ end, function()
 	end
 end)
 
---- Excludes all Remotes that share the same name as the selected.Log remote from the RileyLogs
+--- Excludes all Remotes that share the same name as the selected.Log remote from the RemoteSpy
 newButton("Exclude (n)", function()
-	return "Click to exclude all remotes with this name.\nExcluding a remote makes RileyRemote ignore it, but it will continue to be usable."
+	return "Click to exclude all remotes with this name.\nExcluding a remote makes SimpleSpy ignore it, but it will continue to be usable."
 end, function()
 	if selected then
 		blacklist[selected.Name] = true
@@ -2340,7 +2341,7 @@ end)
 
 --- clears blacklist
 newButton("Clr Blacklist", function()
-	return "Click to clear the blacklist.\nExcluding a remote makes RileyRemote ignore it, but it will continue to be usable."
+	return "Click to clear the blacklist.\nExcluding a remote makes SimpleSpy ignore it, but it will continue to be usable."
 end, function()
 	blacklist = {}
 	TextLabel.Text = "Blacklist cleared!"
@@ -2348,7 +2349,7 @@ end)
 
 --- Prevents the selected.Log Remote from firing the server (still logged)
 newButton("Block (i)", function()
-	return "Click to stop this remote from firing.\nBlocking a remote won't remove it from RileyRemote logs, but it will not continue to fire the server."
+	return "Click to stop this remote from firing.\nBlocking a remote won't remove it from SimpleSpy logs, but it will not continue to fire the server."
 end, function()
 	if selected then
 		if selected.Remote.remote then
@@ -2360,9 +2361,9 @@ end, function()
 	end
 end)
 
---- Prevents all remotes from firing that share the same name as the selected.Log remote from the RileyRemote (still logged)
+--- Prevents all remotes from firing that share the same name as the selected.Log remote from the RemoteSpy (still logged)
 newButton("Block (n)", function()
-	return "Click to stop remotes with this name from firing.\nBlocking a remote won't remove it from RileyRemote logs, but it will not continue to fire the server."
+	return "Click to stop remotes with this name from firing.\nBlocking a remote won't remove it from SimpleSpy logs, but it will not continue to fire the server."
 end, function()
 	if selected then
 		blocklist[selected.Name] = true
@@ -2372,7 +2373,7 @@ end)
 
 --- clears blacklist
 newButton("Clr Blocklist", function()
-	return "Click to stop blocking remotes.\nBlocking a remote won't remove it from RileyRemote logs, but it will not continue to fire the server."
+	return "Click to stop blocking remotes.\nBlocking a remote won't remove it from SimpleSpy logs, but it will not continue to fire the server."
 end, function()
 	blocklist = {}
 	TextLabel.Text = "Blocklist cleared!"
