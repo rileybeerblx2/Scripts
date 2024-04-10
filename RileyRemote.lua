@@ -2201,7 +2201,7 @@ if not _G.SimpleSpyExecuted then
 	end)
 	if not succeeded then
 		warn(
-			"A fatal error has occured, RileyRemote was unable to launch properly.\nPlease DM this error message to RileyBeeRBLX:\n\n"
+			"A fatal error has occured, SimpleSpy was unable to launch properly.\nPlease DM this error message to RileyBeeRBLX:\n\n"
 				.. tostring(err)
 		)
 		SimpleSpy2:Destroy()
