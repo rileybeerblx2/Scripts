@@ -3689,8 +3689,8 @@ if IKAI then
 end
 
 game.StarterGui:SetCore("SendNotification", {
-	Title = "MODZ Notification", 
-	Text = "ฟังชั่นที่มีไอคอนนี้สามารถเปิด\nพร้อมฟามเวลได้",
+	Title = "Riley Hub V4 - Blox Fruit", 
+	Text = "Enjoy Using The Script!",
 	Icon = "http://www.roblox.com/asset/?id=9610159123",
 	Duration = 8
 })
